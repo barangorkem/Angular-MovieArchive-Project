@@ -1,0 +1,197 @@
+<app-top-navbar>
+
+
+
+</app-top-navbar>
+<div id="wrapper">
+
+  <app-left-navbar></app-left-navbar>
+
+  <div id="content-wrapper">
+
+    <div class="container-fluid">
+
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Tables</li>
+      </ol>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Kullanici Ekle</button>
+      <br>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #userRegister="ngForm" (ngSubmit)="postAdminAddUserData(userRegister)">
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Kullanıcı Adı</label>
+                  <input type="text" class="form-control"  id="recipient-name" required minlength="7" maxlength="20" [(ngModel)]="userdata.kullaniciadi" name="kullaniciadi" #kullaniciadi="ngModel">
+                  <div *ngIf="kullaniciadi.errors && (kullaniciadi.dirty || kullaniciadi.touched)" class="alert alert-danger">
+                    <div [hidden]="!kullaniciadi.errors.required">
+                      Kullanici Adı gereklidir.
+                    </div>
+                    <div [hidden]="!kullaniciadi.errors.minlength">
+                      Kullanici Adı en az 7 karakter olmalidir.
+                    </div>
+                    <div [hidden]="!kullaniciadi.errors.maxlength">
+                      Kullanici Adı en fazla 20 karakter olmalidir.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Şifre</label>
+                  <input type="text" class="form-control" required minlength="7" maxlength="20" id="recipient-name" [(ngModel)]="userdata.kullanicisifre" name="kullanicisifre" #kullanicisifre="ngModel">
+                  <div *ngIf="kullanicisifre.errors && (kullanicisifre.dirty || kullanicisifre.touched)" class="alert alert-danger">
+                    <div [hidden]="!kullanicisifre.errors.required">
+                      Şifre gereklidir.
+                    </div>
+                    <div [hidden]="!kullanicisifre.errors.minlength">
+                      Şifre en az 7 karakter olmalidir.
+                    </div>
+                    <div [hidden]="!kullanicisifre.errors.maxlength">
+                      Şifre en fazla 20 karakter olmalidir.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label active">E-Mail</label>
+                  <input type="text" class="form-control" id="recipient-name" [(ngModel)]="userdata.kullaniciemail" name="kullaniciemail" #kullaniciemail="ngModel">
+                  
+                </div>
+                <div class="custom-control custom-radio">
+                  <input type="radio" id="customRadio1" value="Admin" class="custom-control-input" [(ngModel)]="userdata.kullaniciyetki" name="kullaniciyetki"
+                    #kullaniciyetki="ngModel" checked>
+                  <label class="custom-control-label" for="customRadio1">Admin</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input type="radio" id="customRadio2"  value="User" class="custom-control-input" [(ngModel)]="userdata.kullaniciyetki"
+                    name="kullaniciyetki" #kullaniciyetki="ngModel">
+                  <label class="custom-control-label" for="customRadio2">User</label>
+                </div>
+                
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="!userRegister.form.valid">Send message</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <!-- DataTables Example -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          Data Table Example</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Ad</th>
+                  <th>Şifre</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                  <th>Sil veya Güncelle</th>
+                  
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>Id</th>
+                  <th>Ad</th>
+                  <th>Şifre</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                  <th>Sil veya Güncelle</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                <tr *ngFor="let modeldata of getusersData">
+                  <td>{{modeldata.kullaniciid}}</td>
+                  <td>{{modeldata.kullaniciadi}}</td>
+                  <td>{{modeldata.kullanicisifre}}</td>
+                  <td>{{modeldata.kullaniciemail}}</td>
+                  <td>{{modeldata.kullaniciyetki}}</td>
+                   
+                    <td>
+                      <button (click)="deleteAdminUserData(modeldata.kullaniciid)" class="btn btn-primary" style="width:110px;">Sil</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button (click)="getAdminFindUserData(modeldata.kullaniciid)" data-target="#getUserData" data-toggle="modal" class="btn btn-primary" style="width:110px;">Güncelle</button>
+                    </td>
+                    <div class="modal fade" id="getUserData" tabindex="-1" role="dialog" aria-labelledby="getUserData" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="getUserData">New message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="form-group">
+                                <label for="recipient-name" class="col-form-label active">Kullanici Adi</label>
+                                <input type="text" class="form-control" id="recipient-name" [(ngModel)]="updateuserData.kullaniciadi" name="kullaniciadi" #kullaniciadi="ngModel">
+                                
+                              </div>  
+                              <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Şifre</label>
+                                <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="updateuserData.kullanicisifre" name="kullanicisifre" #kullanicisifre="ngModel">
+                              </div>
+                              <div class="form-group">
+                                  <label for="recipient-name" class="col-form-label">E-Mail</label>
+                                  <input type="text"  class="form-control" id="recipient-name" [(ngModel)]="updateuserData.kullaniciemail" name="kullaniciemail" #kullaniciemail="ngModel">
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio3" value="Admin"  class="custom-control-input" [(ngModel)]="updateuserData.kullaniciyetki" name="kullaniciyetki" #kullaniciyetki="ngModel">
+                                    <label class="custom-control-label" for="customRadio3">Admin</label>
+                                  </div>
+                                  <div class="custom-control custom-radio">
+                                      <input type="radio" id="customRadio4" value="User"  class="custom-control-input"  [(ngModel)]="updateuserData.kullaniciyetki" name="kullaniciyetki" #kullaniciyetki="ngModel">
+                                      <label class="custom-control-label" for="customRadio4">User</label>
+                                    </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                  <button type="button" class="btn btn-primary"  (click)="putUpdateUserData()" >Güncelle</button>
+                                </div>
+                            </form>
+                          </div>
+                          </div>
+                          </div>
+                          </div>
+                  </tr>
+                  
+            </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+
+  </div>
+  <!-- /.content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>

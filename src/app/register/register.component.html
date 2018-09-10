@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<div class="container" style="padding-top: 54px;">
+  <form #userregister="ngForm">
+    <div class="form-group">
+      <label for="kullaniciadi" >Kullanıcı Adı</label>
+      <input type="text" class="form-control" id="kullaniciadi" required minlength="7" maxlength="20" placeholder="Kullanıcı Adı" [(ngModel)]="model.kullaniciadi" name="kullaniciadi" #kullaniciadi="ngModel">
+      <div *ngIf="kullaniciadi.errors && (kullaniciadi.dirty || kullaniciadi.touched)" class="alert alert-danger">
+        <div [hidden]="!kullaniciadi.errors.required">
+          Kullanici Adı gereklidir.
+        </div>
+        <div [hidden]="!kullaniciadi.errors.minlength">
+          Kullanici Adı en az 7 karakter olmalidir.
+        </div>
+        <div [hidden]="!kullaniciadi.errors.maxlength">
+          Kullanici Adı en fazla 20 karakter olmalidir.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="kullanicisifre">Sifre</label>
+      <input type="password" class="form-control" id="kullanicisifre" required minlength="7" maxlength="20"  placeholder="Şifre" [(ngModel)]="model.kullanicisifre" name="kullanicisifre" #kullanicisifre="ngModel">
+      <div *ngIf="kullanicisifre.errors && (kullanicisifre.dirty || kullanicisifre.touched)" class="alert alert-danger">
+        <div [hidden]="!kullanicisifre.errors.required">
+          Şifre gereklidir.
+        </div>
+        <div [hidden]="!kullanicisifre.errors.minlength">
+          Şifre en az 7 karakter olmalidir.
+        </div>
+        <div [hidden]="!kullanicisifre.errors.maxlength">
+          Şifre en fazla 20 karakter olmalidir.
+        </div>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="kullaniciemail">Email</label>
+      <input type="text" class="form-control" id="kullaniciemail"  required email placeholder="Email" [(ngModel)]="model.kullaniciemail" name="kullaniciemail" #kullaniciemail="ngModel">
+      <div *ngIf="kullaniciemail.errors && (kullaniciemail.dirty || kullaniciemail.touched)" class="alert alert-danger">
+        <div [hidden]="!kullaniciemail.errors.required">
+          Email gereklidir.
+        </div>
+        <div [hidden]="!kullaniciemail.errors.email">
+          Email formatında değil.
+        </div>
+      </div>
+    </div>
+    <button type="button" (click)="onRegister()" [disabled]="!userregister.form.valid" class="btn btn-dark" style="float:right;">Kayıt Ol</button>
+  </form>
+</div>
+
+

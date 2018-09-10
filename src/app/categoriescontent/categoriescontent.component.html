@@ -1,0 +1,33 @@
+<app-header>
+
+</app-header>
+<div class="container">
+
+  <!-- Page Heading -->
+  <h1 class="my-4">Page Heading
+    <small>Secondary Text</small>
+  </h1>
+  <div class="row">
+    <div class="col-lg-4 col-sm-6 portfolio-item" *ngFor="let listfilmsdata of listfilms | paginate: { itemsPerPage: 6, currentPage: p }" >
+      <div class="card h-100">
+        <a (click)="navigateFilmsContent(listfilmsdata?.filmid)" style="cursor: pointer;" ><img class="card-img-top" [src]="listfilmsdata?.filmresim"  alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a (click)="navigateFilmsContent(listfilmsdata?.filmid)" style="font-size: 15px;cursor: pointer;">{{listfilmsdata?.filmadi}}</a>
+          </h4>
+          <p class="card-text">{{listfilmsdata?.filmicerik |slice:0:180}}...</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.row -->             
+<div style="text-align: center;padding-top:20px;" >
+
+    <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+  
+  </div>
+
+
+</div>
+<div class="container" style="margin-top:100px;"></div>

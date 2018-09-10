@@ -1,0 +1,103 @@
+<app-header></app-header>
+<div class="container">
+  <div id="wrapper">
+  
+    
+  
+    <div id="content-wrapper">
+  
+      <div class="container-fluid">
+  
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Eleştirilerim</a>
+          </li>
+          <li class="breadcrumb-item active">Tablo</li>
+        </ol>
+        <br>
+       
+  
+        <br>
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Film Listeleri</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Ad</th>
+                    <th>Güncelle</th>
+                    
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+
+                    <th>Ad</th>
+                    <th>Güncelle</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr *ngFor="let modeldata of listfilms">
+                    <td>{{modeldata?.filmadi}}</td>
+                     
+                      <td>
+                        
+                        <button data-target="#postMovieReviewData" (click)="PutMovieId(modeldata.filmid)" data-toggle="modal" class="btn btn-primary" style="width:110px;">Elestir</button>
+                      </td>
+                     
+                    </tr>
+                    <div class="modal fade" id="postMovieReviewData" tabindex="-1" role="dialog" aria-labelledby="postMovieReviewData" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="postMovieReviewData">New message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form #postMovieReview="ngForm">
+                            
+                           
+                            
+                            <div class="form-group">
+                              <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Film İçerik</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1"  [(ngModel)]="movieReviewDatamodel.elestiriicerik" name="elestiriicerik" #elestiriicerik="ngModel" rows="3"></textarea>
+                              </div>
+                              <div *ngIf="elestiriicerik.errors && (elestiriicerik.dirty || elestiriicerik.touched)" class="alert alert-danger">
+                                <div [hidden]="!elestiriicerik.errors.required">
+                                  Film içeriği gereklidir.
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                              <button type="button" class="btn btn-primary" [disabled]="!postMovieReview.form.valid"  (click)="postMovieReviewContent()">Send message</button>
+                            </div>
+                          </form>
+                          </div>
+                          </div>
+                          </div>
+              </tbody>
+              </table>
+            </div>
+          </div>
+  
+        </div>
+  
+  
+      </div>
+      <!-- /.container-fluid -->
+  
+  
+    </div>
+    <!-- /.content-wrapper -->
+  
+  </div>
+    
+</div> <!-- /.container -->

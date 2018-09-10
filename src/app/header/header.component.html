@@ -1,0 +1,56 @@
+ <!-- Navigation -->
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="background-color:#191919!important;border-top:1px solid #444;">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" style="font-family: 'Russo One', sans-serif;font-style: italic;font-size: 25px;color:white;">FilmArsiv</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+       <!-- <div class="dropdown" style="padding-top: 2px;" >
+          <button type="button" style="background-color:#191919!important;border-color:#191919;" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+            Kategoriler
+          </button>
+          <div class="dropdown-menu">
+            
+            <a class="dropdown-item"  *ngFor="let categoriesnamedata of categoriesdata"><a [routerLink]="['categoriescontent',categoriesnamedata?.kategoriid]">{{categoriesnamedata?.kategoriadi}}</a></a>
+          
+          </div>
+        </div>-->
+        <li class="nav-item" style="padding-top: 2px;">
+            <a class="nav-link" routerLink="/newscontent" style="color:white;font-family: 'Russo One', sans-serif;">Haberler</a>
+          </li>
+        <li class="nav-item"  style="padding-top: 2px;">
+          <a class="nav-link" routerLink="/films" style="color:white;font-family: 'Russo One', sans-serif;">Filmler</a>
+        </li>
+        <li class="nav-item" *ngIf="!this.userService.isLogin()" style="padding-top: 2px;">
+          <a class="nav-link" routerLink="/login" style="color:white;font-family: 'Russo One', sans-serif;">Giriş Yap</a>
+        </li>
+        <li class="nav-item" *ngIf="!this.userService.isLogin()">
+          <a routerLink="/register" class="nav-link" style="color:white;padding-top: 10px;font-family: 'Russo One', sans-serif;" >KayıtOl</a>
+        </li>
+       <li class="nav-item" *ngIf="this.userService.roleMatch(['Admin'])">
+          <a routerLink="/adminpanel" class="nav-link" style="color:white;padding-top: 10px;font-family: 'Russo One', sans-serif;" >Admin Panel</a>
+        </li> 
+        <li class="nav-item" *ngIf="this.userService.roleMatch(['Admin','SuperUser'])">
+            <a routerLink="/moviereview" class="nav-link" style="color:white;padding-top: 10px;font-family: 'Russo One', sans-serif;" >Elestiri Yap</a>
+          </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="#" style="color:white; padding-top: 10px;font-family: 'Russo One', sans-serif;">İletişim</a>
+        </li>
+       
+        <div class="dropdown" *ngIf="this.userService.isLogin()" >
+          <button type="button" style="background-color:#191919!important;border-color:#191919;padding-top: 10px;font-family: 'Russo One', sans-serif;" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+            {{model?.kullaniciadi}}
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Profil</a>
+            <a class="dropdown-item" *ngIf="this.userService.roleMatch(['Admin','SuperUser'])" routerLink="/myMovieReviews">Eleştirilerim</a>
+            <a class="dropdown-item" routerLink="/logout" >Çıkış Yap</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>

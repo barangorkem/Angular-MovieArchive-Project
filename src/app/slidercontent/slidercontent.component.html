@@ -1,0 +1,30 @@
+<app-header></app-header>
+<div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="my-4" style="font-weight: bold;font-style: italic;cursor: pointer;text-align:left;">{{sliderData.sliderbaslik}}
+     
+    </h1>
+    <div class="row">
+      <div class="col-lg-6 col-sm-6 portfolio-item"  *ngFor="let sliderContentDataitem of sliderContentData | paginate: { itemsPerPage: 2, currentPage: p }" >
+        <div class="card h-100">
+          <a  ><img class="card-img-top" [src]="sliderContentDataitem?.slidericerikresim"  alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a  style="font-size: 15px;">{{sliderContentDataitem?.slidericerikbaslik}}</a>
+            </h4>
+            <p class="card-text">{{sliderContentDataitem?.slidericerik1}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->             
+  <div style="text-align: center;padding-top:20px;" >
+  
+      <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+    
+    </div>
+  
+  
+  </div>
+  <div class="container" style="margin-top:100px;"></div>

@@ -1,0 +1,52 @@
+<app-header></app-header>
+<div class="container">
+
+  <div class="row">
+
+    
+ 
+
+    <div class="col-lg-9">
+
+      <div class="card mt-4">
+        <img class="card-img-top img-fluid" [src]="newsDataItem?.haberresim" alt="">
+        <div class="card-body">
+          <h3 class="card-title">{{newsDataItem?.haberadi}}</h3>
+          <h4></h4>
+          <p class="card-text">{{newsDataItem?.habericerik}}</p>
+          <span class="text-warning"></span>
+          
+        </div>
+      </div>
+      <!-- /.card -->
+      <br>
+      <h2 style="font-style: italic;">Diğer haberler</h2>
+      <ul style="list-style-type: none;">
+        <li *ngFor="let newsDataItem of newsData" style="padding-top: 5px;"><a style="cursor: pointer; color:#005ea8;font-style:italic;font-weight: bold;"  (click)="newsDataItemNavigate(newsDataItem?.haberid)">{{newsDataItem?.haberadi}}</a></li>
+      </ul>
+     
+  
+
+    </div>
+    <!-- /.col-lg-9 -->
+    
+    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item" >
+      <h5 style="    color: black; font-family: 'Russo One', sans-serif;font-size: 21px;font-style: italic;">Vizyondaki Filmler</h5>
+    <div class="card h-100" *ngFor="let thisweeksmovieitem of thisweeksmovie" style="height: 16%!important;border:none;">
+      <a (click)="thisweeksmovieNavigate(thisweeksmovieitem?.filmid)" style="cursor: pointer;"><img class="card-img-top" [src]="thisweeksmovieitem.filmresim" style="height: 170px;" alt=""></a>
+      <div class="card-body">
+        <h5 class="card-title" style="padding-bottom: 5px;">
+          <a style="cursor: pointer;color: black;font-family: 'Russo One', sans-serif;font-size: 16px;font-style: italic;" (click)="thisweeksmovieNavigate(thisweeksmovieitem?.filmid)">{{thisweeksmovieitem?.filmadi}}</a>
+        </h5>
+     <!--<p class="card-text">{{upcomingmovieitem?.filmicerik | slice:0:100}}...</p>-->
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+</div>
+
+<div style="margin-top: 150px;">
+
+</div>

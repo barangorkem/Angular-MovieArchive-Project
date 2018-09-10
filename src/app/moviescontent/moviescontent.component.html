@@ -1,0 +1,103 @@
+<app-header></app-header>
+<div class="container" style="padding-bottom:50px;">
+
+  <div class="row">
+
+    <div class="col-lg-9">
+
+      <div class="card mt-4">
+        <img class="card-img-top img-fluid" [src]="thisweeksmovie?.filmresim" alt="Error">
+        <div class="card-body">
+          <h3 class="card-title">{{thisweeksmovie?.filmadi}}</h3>
+          <h4></h4>
+          <p class="card-text">{{thisweeksmovie?.filmicerik}}</p>
+          
+          <form *ngIf="this.userService.isLogin()">
+              <h4>Puanlayın:</h4>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="radio1">
+                <input type="radio" class="form-check-input" id="radio1" [(ngModel)]="moviesgrade.filmnotu" name="filmnotu"  value="1" checked>1
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="radio2">
+                <input type="radio" class="form-check-input" id="radio2" [(ngModel)]="moviesgrade.filmnotu" name="filmnotu" value="2">2
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" id="radio3" [(ngModel)]="moviesgrade.filmnotu" name="filmnotu" value="3" >3
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" id="radio4" [(ngModel)]="moviesgrade.filmnotu" name="filmnotu" value="4" >4
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" id="radio5" [(ngModel)]="moviesgrade.filmnotu" name="filmnotu" value="5" >5
+              </label>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="movieGrade()">Gönder</button>
+          </form>
+          <!--<span class="text-warning">★ ★ ★ ★ ☆</span> -->
+          <h3>Genel Not</h3>
+
+          <ngb-rating [rate]="film_grade" style="color:darkorange;font-size: 30px;"></ngb-rating>  
+          
+        </div>
+        
+      </div>
+      
+      <!-- /.card -->
+      <div class="col-lg-12" *ngIf="this.userService.isLogin()">
+    <form #usercomment="ngForm">
+      
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" id="yorum"  required minlength="7" maxlength="200" placeholder="Yorum Yap" [(ngModel)]="commentmodel.yorum" name="yorum" #yorum="ngModel"></textarea>
+      
+      </div>
+      <div *ngIf="yorum.errors && (yorum.dirty || yorum.touched)" class="alert alert-danger">
+          <div [hidden]="!yorum.errors.required">
+            Yorum boş gönderilemez.
+          </div>
+          <div [hidden]="!yorum.errors.minlength">
+            Yorum en az 40 karakter olmalidir.
+          </div>
+          <div [hidden]="!yorum.errors.maxlength">
+            Yorum en fazla 200 karakter olmalidir.
+          </div>
+        </div>  
+        <label  >Today is {{today | date}}</label><br>
+        <label >The time is {{today | date:'shortTime'}}</label>
+      <button type="button" class="btn btn-dark" (click)="doComment()" [disabled]="!usercomment.form.valid" style="background-color:#191919!important;float:right;">Submit</button>
+      
+    </form>
+    
+  </div>
+  <div class="card card-outline-secondary my-4">
+    <div class="card-header">
+      Yorumlar
+    </div>
+    <div class="card-body" *ngFor="let thisweekmoviecomments of usersthisweeksmoviecomments">
+      <p>
+        {{thisweekmoviecomments.yorum}}
+      </p>
+      <small class="text-muted"> {{thisweekmoviecomments.kullaniciadi}}  {{thisweekmoviecomments.yorumtarihi}}--{{thisweekmoviecomments.yorumsaati}}</small>
+      <hr>
+    </div>
+    
+  </div>
+
+    </div>
+    <!-- /.col-lg-9 -->
+    <div class="col-lg-3">
+    
+      </div>
+      <!-- /.col-lg-3 -->
+
+  </div>
+  
+</div>

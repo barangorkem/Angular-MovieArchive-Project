@@ -1,0 +1,28 @@
+<app-header></app-header>
+
+<div class="container" style="padding-top: 54px;">
+  <form #userlogin="ngForm">
+    <div class="form-group">
+      <label for="kullaniciadi" >Kullanıcı Adı</label>
+      <input type="text" class="form-control" id="kullaniciadi" required  placeholder="Kullanıcı Adı" [(ngModel)]="model.kullaniciadi" name="kullaniciadi" #kullaniciadi="ngModel">
+      <div *ngIf="kullaniciadi.errors && (kullaniciadi.dirty || kullaniciadi.touched)" class="alert alert-danger">
+        <div [hidden]="!kullaniciadi.errors.required">
+          Kullanici Adı gereklidir.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="kullanicisifre">Sifre</label>
+      <input type="password" class="form-control" id="kullanicisifre" required   placeholder="Şifre" [(ngModel)]="model.kullanicisifre" name="kullanicisifre" #kullanicisifre="ngModel">
+      <div *ngIf="kullanicisifre.errors && (kullanicisifre.dirty || kullanicisifre.touched)" class="alert alert-danger">
+        <div [hidden]="!kullanicisifre.errors.required">
+          Şifre gereklidir.
+        </div>
+      </div>
+    </div>
+
+    <button type="button" (click)="onLogin()" [disabled]="!userlogin.form.valid" class="btn btn-dark" style="float:right;">Giriş Yap</button>
+  </form>
+</div>
+
+

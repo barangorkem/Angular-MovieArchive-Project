@@ -1,0 +1,75 @@
+<app-header></app-header>
+<div class="container">
+  
+  <div class="row my-4">
+    <div class="col-lg-8">
+      <img class="img-fluid rounded" [src]="newsBanner?.haberresim" alt="">
+    </div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-4">
+      <h3>{{newsBanner?.haberadi}}</h3>
+      <p>{{newsBanner?.habericerik|slice:0:180}}...</p>
+      <a class="btn btn-primary btn-lg"  [routerLink]="['newscontentitem',newsBanner?.haberid]">Call to Action!</a>
+    </div>
+    <!-- /.col-md-4 -->
+  </div>
+  <div class="card text-white bg-secondary my-4 text-center">
+    <div class="card-body">
+      <p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-9">
+          <div *ngFor="let newsListitem of newsList">
+    
+              <div class="row">
+                <div class="col-md-5">
+                  <a href="#">
+                    <img class="img-fluid rounded mb-3 mb-md-0" [src]="newsListitem?.haberresim" alt="">
+                  </a>
+                </div>
+                <div class="col-md-7">
+                  <h3>{{newsListitem?.haberadi}}</h3>
+                  <p>{{newsListitem?.habericerik|slice:0:200}}...</p>
+                  <a class="btn btn-primary" [routerLink]="['newscontentitem',newsListitem?.haberid]" href="#">View Project</a>
+                </div>
+              </div>
+              <hr>
+                
+            </div>
+      </div>
+      
+        <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item" >
+            <h5 style="    color: black; font-family: 'Russo One', sans-serif;font-size: 21px;font-style: italic;">Gelecek Filmler</h5>
+          <div class="card h-100" *ngFor="let upcomingmovieitem of upcomingmovie" style="height: 16%!important;border:none;">
+            <a (click)="upcomingmovieNavigate(upcomingmovieitem?.filmid)" style="cursor: pointer;"><img class="card-img-top" [src]="upcomingmovieitem.filmresim" style="height: 170px;" alt=""></a>
+            <div class="card-body">
+              <h5 class="card-title" style="padding-bottom: 5px;">
+                <a style="cursor: pointer;color: black;font-family: 'Russo One', sans-serif;font-size: 16px;font-style: italic;" (click)="upcomingmovieNavigate(upcomingmovieitem?.filmid)">{{upcomingmovieitem?.filmadi}}</a>
+              </h5>
+           <!--<p class="card-text">{{upcomingmovieitem?.filmicerik | slice:0:100}}...</p>-->
+            </div>
+          </div>
+        </div>
+      </div>
+<h2 style="font-style: italic;">Bu Haftaki Filmler</h2>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 portfolio-item" *ngFor="let thisweeksmovieitem of thisweeksmovie">
+      <div class="card h-100">
+        <a (click)="thisweeksmovieNavigate(thisweeksmovieitem?.filmid)" style="cursor: pointer;"><img class="card-img-top" [src]="thisweeksmovieitem.filmresim" alt=""></a>
+        <div class="card-body">
+          <h5 class="card-title">
+            <a style="text-decoration-line: underline;cursor: pointer;" (click)="thisweeksmovieNavigate(thisweeksmovieitem?.filmid)">{{thisweeksmovieitem?.filmadi}}</a>
+          </h5>
+          <p class="card-text">{{thisweeksmovieitem?.filmicerik | slice:0:100}}...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  </div>
+  <div style="margin-top: 150px;">
+
+  </div>
+

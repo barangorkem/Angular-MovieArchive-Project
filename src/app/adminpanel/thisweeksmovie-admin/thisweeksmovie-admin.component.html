@@ -1,0 +1,219 @@
+
+<app-top-navbar>
+
+
+
+</app-top-navbar>
+<div id="wrapper">
+
+  <app-left-navbar></app-left-navbar>
+
+  <div id="content-wrapper">
+
+    <div class="container-fluid">
+
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Tables</li>
+      </ol>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Film Ekle</button>
+      <br>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #movieAdd="ngForm" (ngSubmit)="postAdminAddMovie(movieAdd)">
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Film Adı</label>
+                  <input type="text" class="form-control"  id="recipient-name" required [(ngModel)]="thisweeksmoviemodel.filmadi" name="filmadi" #filmadi="ngModel">
+                  <div *ngIf="filmadi.errors &&  filmadi.touched" class="alert alert-danger">
+                    <div [hidden]="!filmadi.errors.required">
+                      Film Adı gereklidir.
+                    </div>
+                   
+                   
+                  </div>
+                </div>
+               
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Film Resmi</label>
+                  <input type="file" class="form-control-file" id="exampleFormControlFile1" [(ngModel)]="thisweeksmoviemodel.filmresim" name="filmresim" #filmresim="ngModel">
+                  <div *ngIf="filmresim.errors &&  filmresim.touched" class="alert alert-danger">
+                    <div [hidden]="!filmresim.errors.required">
+                      Film resmi gereklidir.
+                    </div>
+                 
+                   
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Film İçerik</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1"  [(ngModel)]="thisweeksmoviemodel.filmicerik" name="filmicerik" #filmicerik="ngModel" rows="3"></textarea>
+                  </div>
+                  <div *ngIf="filmicerik.errors && (filmicerik.dirty || filmicerik.touched)" class="alert alert-danger">
+                    <div [hidden]="!filmicerik.errors.required">
+                      Film içeriği gereklidir.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Film Derecesi</label>
+                    <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="thisweeksmoviemodel.genel_not" name="genel_not" #genel_not="ngModel">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+              
+              
+                
+                
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="!movieAdd.form.valid">Send message</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <!-- DataTables Example -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          Data Table Example</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Ad</th>
+                  <th>Resim</th>
+                  <th>İçerik</th>
+                  <th>Genel Not</th>
+                  <th>Sil veya Güncelle</th>
+                  
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>Id</th>
+                  <th>Ad</th>
+                  <th>Şifre</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                  <th>Sil veya Güncelle</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                <tr *ngFor="let modeldata of thisweeksmovie">
+                  <td>{{modeldata.filmid}}</td>
+                  <td>{{modeldata.filmadi}}</td>
+                  <td>{{modeldata.filmresim}}</td>
+                  <td>{{modeldata.filmicerik}}</td>
+                  <td>{{modeldata.genel_not}}</td>
+                   
+                    <td>
+                      <button (click)="deleteAdminMovie(modeldata.filmid)" class="btn btn-primary" style="width:110px;">Sil</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button (click)="getAdminUpdateMovie(modeldata.filmid)" data-target="#getMovieUpdateData" data-toggle="modal" class="btn btn-primary" style="width:110px;">Güncelle</button>
+                    </td>
+                 
+                  </tr>
+                  <div class="modal fade" id="getMovieUpdateData" tabindex="-1" role="dialog" aria-labelledby="getMovieUpdateData" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="getMovieUpdateData">New message</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form #getMovieUpdateData="ngForm">
+                          <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Film Adı</label>
+                            <input type="text" class="form-control"  id="recipient-name" required [(ngModel)]="thisweeksmovieUpdateData.filmadi" name="filmadi" #filmadi="ngModel">
+                            <div *ngIf="filmadi.errors &&  filmadi.touched" class="alert alert-danger">
+                              <div [hidden]="!filmadi.errors.required">
+                                Film Adı gereklidir.
+                              </div>
+                             
+                             
+                            </div>
+                          </div>
+                         
+                          <div class="form-group">
+                            <label for="exampleFormControlFile1">Film Resmi</label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile1" [(ngModel)]="thisweeksmovieUpdateData.filmresim" name="filmresim" #filmresim="ngModel">
+                           
+                          </div>
+                          <div class="form-group">
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Film İçerik</label>
+                              <textarea class="form-control" id="exampleFormControlTextarea1"  [(ngModel)]="thisweeksmovieUpdateData.filmicerik" name="filmicerik" #filmicerik="ngModel" rows="3"></textarea>
+                            </div>
+                            <div *ngIf="filmicerik.errors && (filmicerik.dirty || filmicerik.touched)" class="alert alert-danger">
+                              <div [hidden]="!filmicerik.errors.required">
+                                Film içeriği gereklidir.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleFormControlSelect1">Example select</label>
+                              <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="thisweeksmovieUpdateData.genel_not" name="genel_not" #genel_not="ngModel">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                              </select>
+                            </div>
+            
+                        
+                          
+                          
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                            <button type="button" class="btn btn-primary" [disabled]="!getMovieUpdateData.form.valid"  (click)="putUpdateAdminMovieData()">Send message</button>
+                          </div>
+                        </form>
+                        </div>
+                        </div>
+                        </div>
+            </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+
+  </div>
+  <!-- /.content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>

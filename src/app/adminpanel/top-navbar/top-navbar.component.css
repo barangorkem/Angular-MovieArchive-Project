@@ -1,0 +1,4 @@
+@import url('../adminstyle/vendor/fontawesome-free/css/all.min.css');
+@import url('../adminstyle/vendor/datatables/dataTables.bootstrap4.css');
+@import url('../adminstyle/css/sb-admin.css');
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
